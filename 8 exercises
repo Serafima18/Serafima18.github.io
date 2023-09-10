@@ -1,0 +1,85 @@
+1
+dna = 'AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC'
+a = lambda x: dna.count(x)
+print(a("A"), a("C"), a("G"), a("T"))
+
+
+2
+dna = "GATGGAACTTGACTACGTAAATT"
+rna = dna.replace("T", "U")
+print(rna)
+
+
+3
+dna = 'AAAACCCGGT'
+dna.replace('A', '1').replace('C', '2').replace('G', '3').replace('T', '4')
+dna.replace('1', 'T').replace('2', 'G').replace('3', 'C').replace('4', 'A')
+print(dna)
+
+
+4
+dna = 'CCACCCTCGTGGTATGGCTAGGCATTCAGGAACCGGAGAACGCTTCAGACCAGCCCGGACTGGGAACCTGCGGGCAGTAGGTGGAAT'
+print((dna.count("G") + dna.count("C")) / len(dna) * 100)
+
+
+5
+dna1 = 'GAGCCTACTAACGGGAT'
+dna2 = 'CATCGTAATGACGGCCT'
+c = 0
+for i in range(len(dna1)):
+    if dna1[i] != dna2[i]: c += 1
+print(c)
+
+
+6
+rna = 'AUGGCCAUGGCGCCCAGAACUGAGAUCAAUAGUACCCGUAUUAACGGGUGA'
+data = {
+    "UUU": "F", 'CUU': 'L', 'AUU': 'I', 'GUU': "V",
+    "UUC": 'F', 'CUC': 'L', 'AUC': 'I', 'GUC': 'V',
+    "UUA": 'L', 'CUA': 'L', 'AUA': 'I', 'GUA': 'V',
+    "UUG": 'L', 'CUG': 'L', 'AUG': 'M', 'GUG': 'V',
+    "UCU": 'S', 'CCU': 'P', 'ACU': 'T', 'GCU': 'A',
+    "UCC": 'S', 'CCC': 'P', 'ACC': 'T', 'GCC': 'A',
+    "UCA": 'S', 'CCA': 'P', 'ACA': 'T', 'GCA': 'A',
+    'UCG': 'S', 'CCG': 'P', 'ACG': 'T', 'GCG': 'A',
+    'UAU': 'Y', 'CAU': 'H', 'AAU': 'N', 'GAU': 'D',
+    'UAC': 'Y', 'CAC': 'H', 'AAC': 'N', 'GAC': 'D',
+    'UAA': 'Stop', 'CAA': 'Q', 'AAA': 'K', 'GAA': 'E',
+    'UAG': 'Stop', 'CAG': 'Q', 'AAG': 'K', 'GAG': 'E',
+    'UGU': 'C', 'CGU': 'R', 'AGU': 'S', 'GGU': 'G',
+    'UGC': 'C', 'CGC': 'R', 'AGC': 'S', 'GGC': 'G',
+    'UGA': 'Stop', 'CGA': 'R', 'AGA': 'R', 'GGA': 'G',
+    'UGG': 'W', 'CGG': 'R', 'AGG': 'R', 'GGG': 'G'
+}
+a = ''
+for i in range(0, len(rna), 3):
+    string = rna[i:i + 3]
+    if data[string] == "Stop": break
+    else: a += data[rna[i:i + 3]]
+print(a)
+
+
+7
+dna1 = 'GATATATGCATATACTT'
+dna2 = 'ATAT'
+data = []
+for i in range(len(dna1) - len(dna2)):
+    c = 0
+    for j in range(len(dna2)):
+        if dna1[i + c] == dna2[j]: c += 1
+        if c == len(dna2): data.append(i + 1)
+print(" ".join(map(str, data)))
+
+
+8
+dnas = ['ATCCAGCT', 'GGGCAACT', 'ATGGATCT', 'AAGCAACC', 'TTGGAACT', 'ATGCCATT', 'ATGGCACT']
+b = ''
+for i in range(len(dnas[0])):
+    data = {"A": 0, "T": 0, "G": 0, "C": 0, "BossElem": [-1, "*"]}
+    for j in range(len(dnas)): data[dnas[j][i]] += 1
+    for elem in data:
+        if elem != "BossElem" and data[elem] > data["BossElem"][0]:
+            data["BossElem"][0] = data[elem]
+            data["BossElem"][1] = elem
+    b += data["BossElem"][1]
+print(b)
