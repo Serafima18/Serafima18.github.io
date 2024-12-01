@@ -1,0 +1,8 @@
+SELECT 
+    c.LastName, 
+    c.FirstName
+FROM customers c
+JOIN sales s ON c.CustomerId = s.CustomerId
+WHERE strftime('%Y', s.SalesDate) = '2009' 
+AND s.ShipCity = 'Berlin' 
+AND c.Country = 'Germany';

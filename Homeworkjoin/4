@@ -1,0 +1,12 @@
+SELECT 
+    a.Title AS AlbumName, 
+    (SELECT COUNT(*) FROM tracks t WHERE t.AlbumId = a.AlbumId) AS TrackCount
+FROM albums a;
+
+
+SELECT 
+    a.Title AS AlbumName, 
+    COUNT(t.TrackId) AS TrackCount
+FROM albums a
+LEFT JOIN tracks t ON a.AlbumId = t.AlbumId
+GROUP BY a.AlbumId;

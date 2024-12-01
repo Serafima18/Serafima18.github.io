@@ -1,0 +1,6 @@
+SELECT 
+    g.Name AS GenreName
+FROM genres g
+JOIN tracks t ON g.GenreId = t.GenreId
+GROUP BY g.GenreId
+HAVING AVG(t.UnitPrice) > 1;

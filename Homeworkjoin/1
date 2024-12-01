@@ -1,0 +1,23 @@
+SELECT SUM(si.UnitPrice * si.Quantity) AS TotalSales
+FROM sales s
+JOIN sales_items si ON s.SalesId = si.SalesId
+JOIN customers c ON s.CustomerId = c.CustomerId
+WHERE c.Country = 'USA' 
+AND s.SalesDate >= '2012-01-01' 
+AND s.SalesDate < '2012-04-01';
+
+
+
+SELECT SUM(UnitPrice * Quantity) AS TotalSales
+FROM sales_items si
+WHERE si.SalesId IN (
+    SELECT SalesId
+    FROM sales
+    WHERE SalesDate >= '2012-01-01' 
+    AND SalesDate < '2012-04-01' 
+    AND CustomerId IN (
+        SELECT CustomerId 
+        FROM customers
+        WHERE Country = 'USA'
+    )
+);

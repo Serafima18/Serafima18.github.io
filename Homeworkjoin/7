@@ -1,0 +1,6 @@
+SELECT 
+    g.Name AS GenreName, 
+    AVG(t.UnitPrice) AS AveragePrice
+FROM genres g
+JOIN tracks t ON g.GenreId = t.GenreId
+GROUP BY g.GenreId;

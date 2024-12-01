@@ -1,0 +1,23 @@
+SELECT FirstName, LastName
+FROM customers
+WHERE (FirstName, LastName) NOT IN (
+    SELECT FirstName, LastName
+    FROM employees
+);
+
+
+
+SELECT c.FirstName, c.LastName
+FROM customers c
+LEFT JOIN employees e ON c.FirstName = e.FirstName AND c.LastName = e.LastName
+WHERE e.EmployeeId IS NULL;
+
+
+
+SELECT FirstName, LastName
+FROM customers
+
+EXCEPT
+
+SELECT FirstName, LastName
+FROM employees;

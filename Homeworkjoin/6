@@ -1,0 +1,16 @@
+SELECT 
+    c.LastName
+FROM customers c
+WHERE (SELECT SUM(si.Quantity) 
+       FROM sales_items si 
+       JOIN sales s ON si.SalesId = s.SalesId 
+       WHERE s.CustomerId = c.CustomerId) > 30;
+
+
+SELECT 
+    c.LastName
+FROM customers c
+JOIN sales s ON c.CustomerId = s.CustomerId
+JOIN sales_items si ON s.SalesId = si.SalesId
+GROUP BY c.CustomerId
+HAVING SUM(si.Quantity) > 30;
