@@ -1,0 +1,60 @@
+1)
+select user_id, count(distinct time) as number_of_visits_to_bet
+from LOG
+group by user_id
+
+
+2)
+select
+    user_id,
+    avg(100.0 * (win - bet) / bet) as avg_win_percentage
+from LOG
+group by user_id
+
+
+3)
+select
+    user_id,
+    sum(win - bet) as balance
+from LOG
+group by user_id
+
+
+4)
+select
+    USERS.geo as city,
+    sum(LOG.win - LOG.bet) as total_profit,
+    sum(LOG.bet) as total_bet,
+    sum(LOG.win - LOG.bet) / sum(LOG.bet) as profitability_ratio
+from LOG
+inner join USERS on LOG.user_id = USERS.user_id
+group by USERS.geo
+order by profitability_ratio desc
+
+
+5)
+select
+    USERS.geo as city,
+    avg(LOG.bet) as avg_bet
+from LOG
+inner join USERS on LOG.user_id = USERS.user_id
+group by USERS.geo
+order by avg_bet desc
+
+
+6)
+select avg(avg_value.average_time_first_bet) as Average_time FROM(
+	with first_visit as (
+		select user_id, min(time) as first_visit_time
+		from LOG
+		group by user_id
+	),
+	first_bet as (
+		select user_id, min(time) as first_bet_time
+		from LOG
+		where bet != ""
+		group by user_id
+	)
+	select avg(julianday(first_bet_time) - julianday(first_visit_time)) as average_time_first_bet
+	from first_bet
+	join first_visit on first_visit.user_id = first_bet.user_id) as avg_value
